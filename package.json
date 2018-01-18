@@ -1,0 +1,15 @@
+{
+  "name": "nuxt-async-data",
+  "dependencies": {
+    "axios": "latest",
+    "bulma": "^0.6.2",
+    "lodash": "^4.17.4",
+    "nuxt": "latest"
+  },
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  }
+}
