@@ -37,6 +37,22 @@
     <div class="control is-expanded">
       <input type="text" placeholder="Buscar evento" v-model="text" @keyup="filterResult(text)" class="input">
     </div>
+
+    <!-- Add to favorites -->
+    <p class="control" @click="addToFavorites">
+      <a class="button is-primary">
+        Favorito
+      </a>
+    </p>
+  </div>
+
+  <!-- Tag with favorites -->
+  <div class="tags has-addons">
+    <template v-for="(elem, index) in fav">
+      <span  class="tag is-warning"> {{initCap(elem.sport)}} - {{initCap(elem.competition)}} - {{initCap(elem.query)}}</span>
+      <a @click="deleteFav(index)" class="tag is-delete"></a>
+      &nbsp;
+    </template>
   </div>
 
   <!-- Table of contents -->
@@ -52,7 +68,7 @@
     </thead>
 
     <tbody>
-      <tr v-for="event in showing">
+      <tr v-for="event in showing" :class="{'is-selected': event.highlight} ">
         <td>{{event.day.substr(0, 5)}} - {{event.time.substr(0, 5)}}</td>
         <td>{{initCap(event.sport)}}</td>
         <td>{{initCap(event.competition)}}</td>
@@ -115,11 +131,34 @@ export default {
       text: "",
       sport: "",
       competition: "",
-      selComp: []
+      selComp: [],
+      fav: []
     }
   },
+  mounted () {
+    this.fav = this.getFav() || [];
+    this.updateCollections();
+  },
   methods: {
+    getFav () {
+      return JSON.parse(localStorage.getItem("fav"));
+    },
+    updateFav() {
+      localStorage.setItem("fav", JSON.stringify(this.fav));
+      this.updateCollections();
+    },
+    deleteFav (index) {
+      this.fav.splice(index, 1)
+      this.updateFav();
+    },
     // Update the Competition combo based on the Sport combo
+    addToFavorites () {
+      if(this.sport == "" && this.competition == "" && this.text == ""){
+        return false;
+      }
+      this.fav.push({sport: this.sport, competition: this.competition, query: this.text})
+      this.updateFav();
+    },
     updateSelComp () {
       this.selComp = this.sport == "" ? [] : this.competitions[this.sport];
       this.competition = ""
@@ -144,6 +183,20 @@ export default {
       return str.toLowerCase().replace(/(?:^|\s)[a-z]/g, function(m) {
         return m.toUpperCase();
       });
+    },
+    updateCollections(){
+      this.updateCollectionFav(this.events)
+      this.updateCollectionFav(this.shows);
+    },
+    updateCollectionFav(collection){
+      each(collection, event => {
+        event.highlight = false;
+        each(this.fav, elem => {
+          if(event.sport == elem.sport && event.competition == elem.competition && includes(event.event.toLowerCase(), elem.query.toLowerCase())){
+            event.highlight = true
+          }
+        })
+      })
     }
   }
 }
