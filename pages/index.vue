@@ -191,22 +191,19 @@ export default {
     updateCollectionFav(collection){
       each(collection, event => {
         event.highlight = false;
+
         each(this.fav, elem => {
-          let res = false;
-
-          if(elem.query != ""){
-            res = includes(event.event.toLowerCase(), elem.query.toLowerCase());
-          }
-
-          if(elem.competition != ""){
-            res = res && elem.competition == event.competition
-          }
+          let res = true;
 
           if(elem.sport != ""){
-            res = res && elem.sport == event.sport
+            res = includes(event.sport, elem.sport)
           }
 
-          event.highlight = res;
+          if(res && elem.competition != "") {
+            res = includes(event.competition, elem.competition)
+          }
+
+          event.highlight = res  && includes(event.event.toLowerCase(), elem.query.toLowerCase());
         })
       })
     }
