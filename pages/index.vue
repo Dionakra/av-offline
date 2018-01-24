@@ -138,6 +138,7 @@ export default {
   mounted () {
     this.fav = this.getFav() || [];
     this.updateCollections();
+    this.filterResult("");
   },
   methods: {
     getFav () {
@@ -176,7 +177,7 @@ export default {
           res = includes(event.competition, this.competition)
         }
 
-        return res  && includes(event.event.toLowerCase(), text.toLowerCase());
+        return res && includes(event.event.toLowerCase(), text.toLowerCase());
       });
     },
     initCap(str) {
