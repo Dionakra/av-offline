@@ -192,9 +192,21 @@ export default {
       each(collection, event => {
         event.highlight = false;
         each(this.fav, elem => {
-          if(event.sport == elem.sport && event.competition == elem.competition && includes(event.event.toLowerCase(), elem.query.toLowerCase())){
-            event.highlight = true
+          let res = false;
+
+          if(elem.query != ""){
+            res = includes(event.event.toLowerCase(), elem.query.toLowerCase());
           }
+
+          if(elem.competition != ""){
+            res = res && elem.competition == event.competition
+          }
+
+          if(elem.sport != ""){
+            res = res && elem.sport == event.sport
+          }
+
+          event.highlight = res;
         })
       })
     }
