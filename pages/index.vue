@@ -170,11 +170,11 @@ export default {
         let res = true;
 
         if(this.sport != ""){
-          res = includes(event.sport, this.sport)
+          res = event.sport === this.sport
         }
 
         if(res && this.competition != "") {
-          res = includes(event.competition, this.competition)
+          res = event.competition === this.competition
         }
 
         return res && includes(event.event.toLowerCase(), text.toLowerCase());
