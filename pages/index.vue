@@ -204,7 +204,7 @@ export default {
             res = includes(event.competition, elem.competition)
           }
 
-          event.highlight = res  && includes(event.event.toLowerCase(), elem.query.toLowerCase());
+          event.highlight = event.highlight || (res && includes(event.event.toLowerCase(), elem.query.toLowerCase()));
         })
       })
     }
