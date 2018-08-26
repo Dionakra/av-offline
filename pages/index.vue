@@ -18,7 +18,7 @@
       <div class="select">
         <select @change="updateSelComp" v-model="sport">
           <option value="">Selecciona Deporte</option>
-          <option v-for="curSport in sort(sports)" :value="curSport" :key="curSport">{{initCap(curSport)}}</option>
+          <option v-for="curSport in sports" :value="curSport" :key="curSport">{{initCap(curSport)}}</option>
         </select>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <div class="select">
         <select @change="filterResult(text)" v-model="competition">
           <option value="">Selecciona Competición</option>
-          <option v-for="curComp in sort(selComp)" :value="curComp" :key="curComp">{{initCap(curComp)}}</option>
+          <option v-for="curComp in selComp" :value="curComp" :key="curComp">{{initCap(curComp)}}</option>
         </select>
       </div>
     </div>
@@ -119,7 +119,7 @@ export default {
       events: shows,
       showing: shows,
       channels: data.channels,
-      sports: sports,
+      sports: sports.sort(),
       competitions: competitions
     }
   },
@@ -161,7 +161,7 @@ export default {
       this.updateFav();
     },
     updateSelComp () {
-      this.selComp = this.sport == "" ? [] : this.competitions[this.sport];
+      this.selComp = this.sport == "" ? [] : this.competitions[this.sport].sort();
       this.competition = ""
       this.filterResult(this.text);
     },
@@ -210,19 +210,6 @@ export default {
     },
     sort(coll){
       return coll.sort(this.sortByName)
-    },
-    sortByName(a, b){
-      var nameA = a.toUpperCase(); // ignore upper and lowercase
-      var nameB = b.toUpperCase(); // ignore upper and lowercase
-      if (nameA < nameB) {
-        return -1;
-      }
-
-      if (nameA > nameB) {
-        return 1;
-      }
-
-      return 0;
     }
   }
 }
