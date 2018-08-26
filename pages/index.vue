@@ -18,7 +18,7 @@
       <div class="select">
         <select @change="updateSelComp" v-model="sport">
           <option value="">Selecciona Deporte</option>
-          <option v-for="curSport in sports" :value="curSport">{{initCap(curSport)}}</option>
+          <option v-for="curSport in sort(sports)" :value="curSport" :key="curSport">{{initCap(curSport)}}</option>
         </select>
       </div>
     </div>
@@ -28,7 +28,7 @@
       <div class="select">
         <select @change="filterResult(text)" v-model="competition">
           <option value="">Selecciona Competición</option>
-          <option v-for="curComp in selComp" :value="curComp">{{initCap(curComp)}}</option>
+          <option v-for="curComp in sort(selComp)" :value="curComp" :key="curComp">{{initCap(curComp)}}</option>
         </select>
       </div>
     </div>
@@ -48,9 +48,9 @@
 
   <!-- Tag with favorites -->
   <div class="tags has-addons">
-    <template v-for="(elem, index) in fav">
-      <span  class="tag is-warning"> {{initCap(elem.sport)}} - {{initCap(elem.competition)}} - {{initCap(elem.query)}}</span>
-      <a @click="deleteFav(index)" class="tag is-delete"></a>
+    <template v-for="(elem, index) in fav" >
+      <span  class="tag is-warning" :key="elem"> {{initCap(elem.sport)}} - {{initCap(elem.competition)}} - {{initCap(elem.query)}}</span>
+      <a @click="deleteFav(index)" class="tag is-delete" :key="elem"></a>
       &nbsp;
     </template>
   </div>
@@ -68,13 +68,13 @@
     </thead>
 
     <tbody>
-      <tr v-for="event in showing" :class="{'is-selected': event.highlight} ">
+      <tr v-for="event in showing" :class="{'is-selected': event.highlight}" :key="event.event">
         <td>{{event.day.substr(0, 5)}} - {{event.time.substr(0, 5)}}</td>
         <td>{{initCap(event.sport)}}</td>
         <td>{{initCap(event.competition)}}</td>
         <td>{{initCap(event.event)}}</td>
         <td>
-          <a v-for="(lang, link) in event.links" :href="link">
+          <a v-for="(lang, link) in event.links" :href="link" :key="link">
             <span class="tag is-info is-rounded">{{lang}}</span>
             &nbsp;
           </a>
@@ -207,6 +207,22 @@ export default {
           event.highlight = event.highlight || (res && includes(event.event.toLowerCase(), elem.query.toLowerCase()));
         })
       })
+    },
+    sort(coll){
+      return coll.sort(this.sortByName)
+    },
+    sortByName(a, b){
+      var nameA = a.toUpperCase(); // ignore upper and lowercase
+      var nameB = b.toUpperCase(); // ignore upper and lowercase
+      if (nameA < nameB) {
+        return -1;
+      }
+
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
     }
   }
 }
