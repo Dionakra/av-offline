@@ -1,15 +1,23 @@
 {
-  "name": "nuxt-async-data",
-  "dependencies": {
-    "axios": "latest",
-    "bulma": "^0.6.2",
-    "lodash": "^4.17.4",
-    "nuxt": "latest"
-  },
+  "name": "a",
+  "version": "1.0.0",
+  "description": "My riveting Nuxt.js project",
+  "author": "David de los Santos Boix",
+  "private": true,
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/bulma": "^1.2.0",
+    "cross-env": "^5.2.0",
+    "lodash": "^4.17.11",
+    "nuxt": "^2.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }

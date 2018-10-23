@@ -49,8 +49,8 @@
   <!-- Tag with favorites -->
   <div class="tags has-addons">
     <template v-for="(elem, index) in fav" >
-      <span  class="tag is-warning" :key="elem"> {{initCap(elem.sport)}} - {{initCap(elem.competition)}} - {{initCap(elem.query)}}</span>
-      <a @click="deleteFav(index)" class="tag is-delete" :key="elem"></a>
+      <span  class="tag is-warning" :key="index"> {{initCap(elem.sport)}} - {{initCap(elem.competition)}} - {{initCap(elem.query)}}</span>
+      <a @click="deleteFav(index)" class="tag is-delete" :key="index"></a>
       &nbsp;
     </template>
   </div>
@@ -68,7 +68,7 @@
     </thead>
 
     <tbody>
-      <tr v-for="event in showing" :class="{'is-selected': event.highlight}" :key="event.event">
+      <tr v-for="(event, index) in showing" :class="{'is-selected': event.highlight}" :key="index">
         <td>{{event.day.substr(0, 5)}} - {{event.time.substr(0, 5)}}</td>
         <td>{{initCap(event.sport)}}</td>
         <td>{{initCap(event.competition)}}</td>
