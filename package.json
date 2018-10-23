@@ -1,8 +1,8 @@
 {
-  "name": "a",
+  "name": "av-offline",
   "version": "1.0.0",
-  "description": "My riveting Nuxt.js project",
-  "author": "David de los Santos Boix",
+  "description": "AV Offline - Todo el deporte en un click",
+  "author": "David de los Santos Boix <ddlsb@hotmail.com>",
   "private": true,
   "scripts": {
     "dev": "nuxt",
