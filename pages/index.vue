@@ -12,10 +12,10 @@
   </section>
 
   <!-- Form -->
-  <div class="field has-addons">
+  <div class="columns is-gapless">
     <!-- Sport -->
-    <div class="control">
-      <div class="select">
+    <div class="column is-2 is-12-mobile" >
+      <div class="select is-fullwidth">
         <select @change="updateSelComp" v-model="sport">
           <option value="">Selecciona Deporte</option>
           <option v-for="curSport in sports" :value="curSport" :key="curSport">{{initCap(curSport)}}</option>
@@ -24,8 +24,8 @@
     </div>
 
     <!-- Competition -->
-    <div class="control">
-      <div class="select">
+    <div class="column is-2 is-12-mobile" >
+      <div class="select is-fullwidth">
         <select @change="filterResult(text)" v-model="competition">
           <option value="">Selecciona Competición</option>
           <option v-for="curComp in selComp" :value="curComp" :key="curComp">{{initCap(curComp)}}</option>
@@ -34,17 +34,18 @@
     </div>
 
     <!-- Input Text -->
-    <div class="control is-expanded">
+    <div class="column is-7 is-12-mobile" >
       <input type="text" placeholder="Buscar evento" v-model="text" @keyup="filterResult(text)" class="input">
     </div>
 
     <!-- Add to favorites -->
-    <p class="control" @click="addToFavorites">
-      <a class="button is-primary">
+    <div class="column is-1 is-12-mobile" @click="addToFavorites">
+      <a class="button is-primary is-fullwidth">
         Favorito
       </a>
-    </p>
+    </div>
   </div>
+  
 
   <!-- Tag with favorites -->
   <div class="tags has-addons">
@@ -60,7 +61,7 @@
     <thead>
       <tr>
         <th>Fecha</th>
-        <th>Deporte</th>
+        <th class="is-hidden-mobile">Deporte</th>
         <th class="is-hidden-mobile">Competición</th>
         <th>Evento</th>
         <th>Enlaces</th>
@@ -70,12 +71,12 @@
     <tbody>
       <tr v-for="(event, index) in showing" :class="{'is-selected': event.highlight}" :key="index">
         <td>{{event.day.substr(0, 5)}} - {{event.time.substr(0, 5)}}</td>
-        <td>{{initCap(event.sport)}}</td>
-        <td>{{initCap(event.competition)}}</td>
+        <td class="is-hidden-mobile">{{initCap(event.sport)}}</td>
+        <td class="is-hidden-mobile">{{initCap(event.competition)}}</td>
         <td>{{initCap(event.event)}}</td>
         <td>
-          <a v-for="(lang, link) in event.links" :href="link" :key="link">
-            <span class="tag is-info is-rounded">{{lang}}</span>
+          <a v-for="(channel, key) in event.channels" :href="channel.url.acestream" :key="key">
+            <span class="tag is-info is-rounded">{{channel.lang}}</span>
             &nbsp;
           </a>
         </td>
@@ -91,34 +92,19 @@ import { filter, includes, each, uniq, map } from 'lodash'
 
 export default {
   async asyncData({ req, params }) {
-    const { data } = await axios.get('https://av-offline.firebaseio.com/.json')
-
-    // Copy the data
-    let shows = data.guide
-    let channels = data.channels
-
-    // Link each show with their channels
-    each(shows, show => {
-      show.links = {}
-      each(show.channels, (lang, channel) => {
-        if (channels[channel]) {
-          show.links[channels[channel]] = lang;
-        }
-      })
-    })
+    const { data } = await axios.get('https://av-offline.firebaseio.com/events/.json')
 
     // Obtain the unique sports and its competitions
-    const sports = uniq(map(shows, 'sport'))
+    const sports = uniq(map(data, 'sport'))
     const competitions = {}
     each(sports, sport => {
-      const competition = filter(shows, show => show.sport == sport)
+      const competition = filter(data, show => show.sport == sport)
       competitions[sport] = uniq(map(competition, 'competition'))
     })
 
     return {
-      events: shows,
-      showing: shows,
-      channels: data.channels,
+      events: data,
+      showing: data,
       sports: sports.sort(),
       competitions: competitions
     }
