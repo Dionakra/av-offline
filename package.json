@@ -2,7 +2,7 @@
   "name": "av-offline",
   "version": "1.0.0",
   "description": "AV Offline - Todo el deporte en un click",
-  "author": "David de los Santos Boix <ddlsb@hotmail.com>",
+  "author": "Dionakra",
   "private": true,
   "scripts": {
     "dev": "nuxt",
@@ -11,13 +11,9 @@
     "generate": "nuxt generate --no-lock"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/bulma": "^1.2.3",
-    "cross-env": "^5.2.0",
-    "lodash": "^4.17.11",
-    "nuxt": "^2.4.5"
-  },
-  "devDependencies": {
-    "nodemon": "^1.18.10"
+    "@nuxtjs/axios": "5.5.4",
+    "@nuxtjs/bulma": "1.2.4",
+    "lodash": "4.17.15",
+    "nuxt": "2.8.1"
   }
 }

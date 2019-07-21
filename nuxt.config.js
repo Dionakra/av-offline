@@ -3,7 +3,7 @@ const pkg = require('./package')
 module.exports = {
   mode: 'universal',
   head: {
-    title: pkg.name,
+    title: 'Arenavision Mirror',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -18,6 +18,9 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/bulma'
   ],
+  axios: {
+    // proxyHeaders: false
+  },
   build: {
     postcss: {
       preset: {
