@@ -81,8 +81,6 @@
 </template>
 
 <script>
-import { filter, includes, each, uniq, map } from "lodash";
-
 String.prototype.initCap = function () {
    return this.toLowerCase().replace(/(?:^|\s)[a-z]/g, function (m) {
       return m.toUpperCase();
@@ -136,7 +134,7 @@ export default {
           res = event.competition === this.competition;
         }
 
-        return res && includes(event.event.toLowerCase(), this.text.toLowerCase());
+        return res && event.event.toLowerCase().includes(this.text.toLowerCase());
       });
     },
     initCap(str) {
