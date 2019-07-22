@@ -2,20 +2,14 @@
 <template>
   <div id="app" class="container">
     <!-- Header -->
-    <section class="hero">
-      <div class="hero-body">
-        <div class="container">
-          <h1 class="title">Arenavision Mirror</h1>
-        </div>
-      </div>
-    </section>
+    <h1 class="title">Arenavision Mirror</h1>
 
     <!-- Form -->
     <div class="columns is-gapless">
       <!-- Sport -->
       <div class="column is-2 is-12-mobile">
         <div class="select is-fullwidth">
-          <select v-model="sport">
+          <select v-model="sport" aria-label="Sport">
             <option value>Sport</option>
             <option
               v-for="curSport in sports"
@@ -29,7 +23,7 @@
       <!-- Competition -->
       <div class="column is-2 is-12-mobile">
         <div class="select is-fullwidth">
-          <select  v-model="competition">
+          <select  v-model="competition" aria-label="Competition">
             <option value>Competition</option>
             <option v-for="curComp in competitions[sport]" :value="curComp" :key="curComp">{{curComp}}</option>
           </select>
@@ -43,6 +37,7 @@
           placeholder="Search"
           v-model="text"
           class="input"
+          aria-label="Search"
         />
       </div>
     </div>
@@ -70,7 +65,7 @@
           <td>{{event.event}}</td>
           <td>
             <a v-for="(channel, key) in event.channels" :href="channel.url.acestream" :key="key">
-              <span class="tag is-info is-rounded">{{channel.lang}}</span>
+              <span class="tag is-black is-rounded">{{channel.lang}}</span>
               &nbsp;
             </a>
           </td>
