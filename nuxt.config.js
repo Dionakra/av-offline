@@ -22,6 +22,11 @@ module.exports = {
   axios: {
     // proxyHeaders: false
   },
+  manifest: {
+    name: "Arenavision",
+    description: "Arenavision Mirror",
+    theme_color: "#f02e2d"
+  },
   build: {
     postcss: {
       preset: {
