@@ -16,7 +16,8 @@ module.exports = {
   loading: { color: '#fff' },
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/bulma'
+    '@nuxtjs/bulma',
+    '@nuxtjs/pwa'
   ],
   axios: {
     // proxyHeaders: false
