@@ -1,9 +1,9 @@
 const pkg = require('./package')
 
 module.exports = {
-  router: {
+  /*router: {
     base: '/av-offline'
-  },
+  },*/
   generate: {
     dir: 'docs'
   },
