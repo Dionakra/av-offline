@@ -1,6 +1,15 @@
 const pkg = require('./package')
 
 module.exports = {
+  router: {
+    base: '/av-offline'
+  },
+  generate: {
+    dir: 'docs'
+  },
+  env: {
+    baseURL: 'http://localhost:3000/av-offline'
+  },
   mode: 'universal',
   head: {
     title: 'Arenavision Mirror',
@@ -36,7 +45,7 @@ module.exports = {
       }
     },
     extend(config, ctx) {
-      
+
     }
   }
 }
